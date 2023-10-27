@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload file</title>
+    <link rel="shortcut icon" href="/imgs/icon.png" type="image/x-icon" />
+  </head>
+  <link rel="stylesheet" href="/styles/upload.css" />
+  <body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <form
+      class="form-container"
+      enctype="multipart/form-data"
+      method="post"
+      action="/api/docs"
+    >
+      <div class="upload-files-container">
+        <div class="drag-file-area">
+          <span class="material-icons-outlined upload-icon"> file_upload </span>
+          <h3 class="dynamic-message">Drag & drop any file here</h3>
+          <label class="label">
+            or
+            <span class="browse-files">
+              <input
+                type="file"
+                class="default-file-input"
+                accept=".doc,.docx,application/msword,.pdf,.png,.jpeg,.txt,.xlsx,.csv,.json,.pptx"
+              />
+              <span class="browse-files-text">browse file</span>
+              <span>from device</span>
+            </span>
+          </label>
+        </div>
+        <span class="cannot-upload-message">
+          <span class="material-icons-outlined">error</span> Please select a
+          file first
+          <span class="material-icons-outlined cancel-alert-button"
+            >cancel</span
+          >
+        </span>
+        <span class="cannot-upload-message2">
+          <span class="material-icons-outlined">error</span> Maximum file size
+          is 5 mb
+          <span class="material-icons-outlined cancel-alert-button2"
+            >cancel</span
+          >
+        </span>
+        <span class="cannot-upload-message3"></span>
+        <div class="file-block">
+          <div class="file-info">
+            <span class="material-icons-outlined file-icon">description</span>
+            <span class="file-name"> </span> |
+            <span class="file-size"> </span>
+          </div>
+          <span class="material-icons remove-file-icon">delete</span>
+          <div class="progress-bar"></div>
+        </div>
+        <!-- <input type="text" placeholder="Enter file code" name="file_code" class="fileCode"> -->
+        <button type="button" class="upload-button">Upload</button>
+        <ul>
+          <li>Maximum file size should be 5 mb</li>
+          <li>
+            Allowed file formats: doc, docx, pdf, png, jpeg, txt, xlsx, csv,
+            json, pptx
+          </li>
+        </ul>
+      </div>
+    </form>
+    <script src="/scripts/upload.js"></script>
+  </body>
+</html>
