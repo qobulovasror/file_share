@@ -22,7 +22,7 @@ let fileSize = document.querySelector(".file-size");
 let progressBar = document.querySelector(".progress-bar");
 let removeFileButton = document.querySelector(".remove-file-icon");
 let uploadButton = document.querySelector(".upload-button");
-// let fileCode = document.querySelector(".fileCode");
+let submit = document.querySelector(".form-container");
 let fileFlag = 0;
 
 let errorAlertButton = document.querySelector(".cancel-alert-button3");
@@ -30,17 +30,17 @@ let errorMessage = document.querySelector(".cannot-upload-message3");
 
 fileInput.addEventListener("click", () => {
   fileInput.value = "";
-  console.log(fileInput.value);
 });
 
 fileInput.addEventListener("change", (e) => {
-  console.log(" > " + fileInput.value);
   uploadIcon.innerHTML = "check_circle";
-  dragDropText.innerHTML = "File Dropped Successfully!";
-  document.querySelector(
-    ".label"
-  ).innerHTML = `drag & drop or <span class="browse-files"> <input type="file" class="default-file-input" style=""/> <span class="browse-files-text" style="top: 0;"> browse file</span></span>`;
-  uploadButton.innerHTML = `Upload`;
+  dragDropText.innerHTML = "Fayl tanlandi";
+  // document.querySelector(".label").innerHTML = `<input type="file" class="default-file-input" style="display: none"/>`;
+  document.querySelector(".label").style.display = "none"
+  uploadButton.innerHTML = `Yuborish`;
+  if(fileInput.files[0].name.length > 27){
+    fileName.innerHTML = fileInput.files[0].name.slice(0, 25)+"...";
+  }
   fileName.innerHTML = fileInput.files[0].name;
   fileSize.innerHTML = (fileInput.files[0].size / 1024).toFixed(1) + " KB";
   uploadedFile.style.cssText = "display: flex;";
@@ -48,28 +48,18 @@ fileInput.addEventListener("change", (e) => {
   fileFlag = 0;
 });
 
-uploadButton.addEventListener("click", (e) => {
+let isSuccsess = false;
+submit.addEventListener("submit", (e) => {
+  if (!isSuccsess) e.preventDefault();
   let isFileUploaded = fileInput.value;
   if (isFileUploaded != "") {
-    if (fileFlag == 0) {
-      if (fileInput.files[0].size / 1024 / 1024 < 5) {
-        fileFlag = 1;
-        var width = 0;
-        var id = setInterval(frame, 50);
-        function frame() {
-          if (width >= 390) {
-            clearInterval(id);
-            uploadButton.innerHTML = `<span class="material-icons-outlined upload-button-icon"> check_circle </span> Uploaded`;
-          } else {
-            width += 5;
-            progressBar.style.width = width + "px";
-          }
-        }
-      } else {
-        cannotUploadMessage2.style.cssText =
-          "display: flex; animation: fadeIn linear 1.5s;";
-        removeFileButton.dispatchEvent(new Event("click"));
-      }
+    if (fileInput.files[0].size / 1024 / 1024 < 5) {
+      fileFlag = 1;
+      isSuccsess = true;
+      e.target.submit();
+    } else {
+      cannotUploadMessage2.style.cssText =
+        "display: flex; animation: fadeIn linear 1.5s;";
     }
   } else {
     cannotUploadMessage.style.cssText =
@@ -111,16 +101,20 @@ if (isAdvancedUpload) {
 
   draggableFileArea.addEventListener("drop", (e) => {
     uploadIcon.innerHTML = "check_circle";
-    dragDropText.innerHTML = "File Dropped Successfully!";
+    dragDropText.innerHTML = "Fayl tanlandi";
+    // document.querySelector(
+    //   ".label"
+    // ).innerHTML = `<input type="file" class="default-file-input" style="display: none"/>`;
     document.querySelector(
       ".label"
-    ).innerHTML = `drag & drop or <span class="browse-files"> <input type="file" class="default-file-input" style=""/> <span class="browse-files-text" style="top: -23px; left: -20px;"> browse file</span> </span>`;
-    uploadButton.innerHTML = `Upload`;
+    ).style.display = "none";
+    uploadButton.innerHTML = `Yuborish`;
 
     let files = e.dataTransfer.files;
     fileInput.files = files;
-    console.log(files[0].name + " " + files[0].size);
-    console.log(document.querySelector(".default-file-input").value);
+    if(files[0].name.length > 27){
+      fileName.innerHTML = files[0].name.slice(0, 25)+"...";
+    }
     fileName.innerHTML = files[0].name;
     fileSize.innerHTML = (files[0].size / 1024).toFixed(1) + " KB";
     uploadedFile.style.cssText = "display: flex;";
@@ -130,6 +124,8 @@ if (isAdvancedUpload) {
 }
 
 removeFileButton.addEventListener("click", () => {
+  location.reload();
+  return;
   uploadedFile.style.cssText = "display: none;";
   fileInput.value = "";
   uploadIcon.innerHTML = "file_upload";

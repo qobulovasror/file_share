@@ -16,35 +16,34 @@
       class="form-container"
       enctype="multipart/form-data"
       method="post"
-      action="/api/docs"
+      action="/upload"  
     >
       <div class="upload-files-container">
+        <h1>Fayl yuklash</h1>
         <div class="drag-file-area">
           <span class="material-icons-outlined upload-icon"> file_upload </span>
-          <h3 class="dynamic-message">Drag & drop any file here</h3>
+          <h3 class="dynamic-message">Faylni bu yerga tashlang</h3>
           <label class="label">
-            or
+            <p style="color: rgb(8, 8, 224)">yoki bu yerni bosing</p>
             <span class="browse-files">
               <input
                 type="file"
+                name="file"
+                id="file"
                 class="default-file-input"
                 accept=".doc,.docx,application/msword,.pdf,.png,.jpeg,.txt,.xlsx,.csv,.json,.pptx"
               />
-              <span class="browse-files-text">browse file</span>
-              <span>from device</span>
             </span>
           </label>
         </div>
         <span class="cannot-upload-message">
-          <span class="material-icons-outlined">error</span> Please select a
-          file first
+          <span class="material-icons-outlined">error</span> Fayl tanlanmagan
           <span class="material-icons-outlined cancel-alert-button"
             >cancel</span
           >
         </span>
         <span class="cannot-upload-message2">
-          <span class="material-icons-outlined">error</span> Maximum file size
-          is 5 mb
+          <span class="material-icons-outlined">error</span> Maxsimal hajim 5 mb
           <span class="material-icons-outlined cancel-alert-button2"
             >cancel</span
           >
@@ -60,14 +59,15 @@
           <div class="progress-bar"></div>
         </div>
         <!-- <input type="text" placeholder="Enter file code" name="file_code" class="fileCode"> -->
-        <button type="button" class="upload-button">Upload</button>
+        <button type="submit" class="upload-button">Yuborish</button>
         <ul>
-          <li>Maximum file size should be 5 mb</li>
+          <li>Maxsimal fayl hajmi: 5 mb</li>
           <li>
-            Allowed file formats: doc, docx, pdf, png, jpeg, txt, xlsx, csv,
+            Ruxsat etilgan formatlar: doc, docx, pdf, png, jpeg, txt, xlsx, csv,
             json, pptx
           </li>
         </ul>
+        <a href="/download">faylni yuklab olish (download)</a>
       </div>
     </form>
     <script src="/scripts/upload.js"></script>

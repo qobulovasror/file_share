@@ -1,13 +1,24 @@
 import { Router } from "express";
+import genId from "../services/generateId.js";
+const DownloadRouter = Router();
 
-const DownloadRouter = Router()
+DownloadRouter.get("/", (req, res) => {
+  res.render("download", { error: null, file_code: null });
+});
 
-DownloadRouter.get('/', (req, res)=>{
-  res.render('download', {files: []})
-})
+DownloadRouter.get("/:file", (req, res) => {
+  if(req.query.key){
+    res.send(req.query.key);
+
+    // res.download(`${__dirname}/store/${name}`, (err)=>{
+    //   if (err) return res.render("error", { errorCode: "500", errorText: err });
+    // });
+  }else{
+    res.redirect('/');
+  }
+});
 
 export default DownloadRouter;
-
 
 /*
 
