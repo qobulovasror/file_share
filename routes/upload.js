@@ -58,7 +58,7 @@ uploadRouter.post("/", async (req, res) => {
       res.render("download", { error: null, file_code: null });
     }
   } catch (error) {
-    res.render("error", { errorCode: "500", errorText: "server error" });
+    res.render("error", { errorCode: "500", errorText: error });
   }
 });
 
