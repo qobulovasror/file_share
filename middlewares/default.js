@@ -1,10 +1,8 @@
 import Express from 'express';
 import fileUploader from 'express-fileupload';
-import path from 'path'
 
 export default function (app) {
   app.use(Express.static('./public'));
-  // app.use(Express.static(path.resolve('../public')));
   app.use(fileUploader({ limits: 5 * 1024 * 2024 }));
   app.use(Express.json());
   app.use(Express.urlencoded({ extended: true }));
