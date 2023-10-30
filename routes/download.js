@@ -1,5 +1,5 @@
 import { Router } from "express";
-import genId from "../services/generateId.js";
+import linkCache from '../services/cache.js';
 const DownloadRouter = Router();
 
 DownloadRouter.get("/", (req, res) => {
@@ -7,14 +7,22 @@ DownloadRouter.get("/", (req, res) => {
 });
 
 DownloadRouter.get("/:file", (req, res) => {
-  if(req.query.key){
-    res.send(req.query.key);
-
-    // res.download(`${__dirname}/store/${name}`, (err)=>{
-    //   if (err) return res.render("error", { errorCode: "500", errorText: err });
-    // });
-  }else{
-    res.redirect('/');
+  try {
+    if(req.query.key && req.query.key.length > 3){
+      const key = req.query.key;
+      const data = linkCache.get(key);
+      if(data==undefined){
+        res.render("error", { errorCode: "500", errorText: "file not found" });
+      }
+      res.download(`./store/${data}`, (err)=>{
+        if (err) return res.render("error", { errorCode: "500", errorText: err });
+        res.redirect('/');
+      });
+    }else{
+      res.render("error", { errorCode: "500", errorText: "bad request" });
+    }
+  } catch (error) {
+    res.render("error", { errorCode: "500", errorText: "server error" });
   }
 });
 

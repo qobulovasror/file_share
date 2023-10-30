@@ -1,6 +1,4 @@
 import Express from 'express';
-import {writeFile, readFile} from 'fs';
-
 import DefaultMiddlewares from './middlewares/default.js'
 import Routes from './routes/index.js';
 
@@ -14,7 +12,7 @@ async function start(){
   try {
     
     app.listen(PORT, () => {
-      console.log(`🚀 SERVER READY @ http://localhost:${PORT}`)
+      console.log(`🚀 SERVER READY http://localhost:${PORT}`)
     })
     Routes(app)
   } catch (error) {
